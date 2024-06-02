@@ -4,16 +4,16 @@ import pandas as pd
 import numpy as np
 
 # Model Inputs (Replace folder location in Hazel)
-folder_inputs = 'D:/18. 2nd paper/8. Github/M2S_extended/1. Model/Model_inputs/'
+folder_inputs = '/Volumes/ElSoldeCusco/1. Research/18. 2nd paper/8. Github/M2S_extended/1. Model/Model_inputs/'
 
 # Network Inputs (Outages, Load, Generation)
-folder_network = 'D:/18. 2nd paper/8. Github/M2S_extended/1. Model/Network_inputs/'
+folder_network = '/Volumes/ElSoldeCusco/1. Research/18. 2nd paper/8. Github/M2S_extended/1. Model/Network_inputs/'
 
 ######=================================================########
 ######               Segment A.1                       ########
 ######=================================================########
 
-SimDays = 365
+SimDays = 365 # Max 365
 SimHours = SimDays * 24
 HorizonHours = 24  ##planning horizon (e.g., 24, 48, 72 hours etc.)
 # TransLoss = 0.075  ##transmission loss as a percent of generation
@@ -38,7 +38,7 @@ df_line_params = pd.read_csv(folder_inputs+'line_params.csv',header=0)
 lines = list(df_line_params['line'])
 
 #outage data
-df_outages = pd.read_csv(folder_network + 'lines_10ft.csv',header=0,index_col=0) #Change the file according to the flooding depth
+df_outages = pd.read_csv(folder_network + 'lines_DCOPF.csv',header=0,index_col=0) #Change the file according to the flooding depth
 
 ##hourly ts of hydro at nodal-level
 df_hydro = pd.read_csv(folder_network + 'data_hydro_H.csv',header=0)
@@ -49,15 +49,15 @@ h_gens = list(df_hydro.columns)
 # p_nodes = list(df_pumping.columns)
 
 ##hourly ts of dispatchable solar-power at each plant
-df_solar = pd.read_csv(folder_network + 'data_solar_10ft_final.csv',header=0) #Change the file  
+df_solar = pd.read_csv(folder_network + 'data_solar.csv',header=0) #Change the file  
 s_gens = list(df_solar.columns)
 
 ##hourly ts of dispatchable solar-power at each plant
-df_nuc = pd.read_csv('data_nuc.csv',header=0)   
+df_nuc = pd.read_csv(folder_network +'data_nuc.csv',header=0)   
 n_gens = list(df_nuc.columns)
 
 ##hourly ts of load at substation-level
-df_load = pd.read_csv(folder_network + 'data_load_10ft_final.csv',header=0) #Change the file
+df_load = pd.read_csv(folder_network + 'data_load.csv',header=0) #Change the file
 d_nodes = list(df_load.columns)
 # for i in range(0,len(d_nodes)):
 #     d_nodes[i] = 'n_' + d_nodes[i]
@@ -79,7 +79,7 @@ df_must.columns = h3
 
 ####======== Lists of Nodes of the Power System ========#######
 
-all_nodes = pd.read_csv('unique_nodes.csv', header=0,index_col=0)##Generation nodes without demand
+all_nodes = pd.read_csv(folder_inputs+'unique_nodes.csv', header=0,index_col=0)##Generation nodes without demand
 all_nodes.columns = ['Name']
 all_nodes = list(all_nodes['Name']) 
 

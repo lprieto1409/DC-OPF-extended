@@ -18,15 +18,24 @@ from datetime import datetime
 import pyomo.environ as pyo
 from pyomo.environ import value
 
+# Model Inputs (Replace folder location in Hazel)
+folder_inputs = '/Volumes/ElSoldeCusco/1. Research/18. 2nd paper/8. Github/M2S_extended/1. Model/Model_inputs/'
+
+# Network Inputs (Outages, Load, Generation)
+folder_network = '/Volumes/ElSoldeCusco/1. Research/18. 2nd paper/8. Github/M2S_extended/1. Model/Network_inputs/'
+
+# Input
+folder = '/Volumes/ElSoldeCusco/1. Research/18. 2nd paper/8. Github/M2S_extended/1. Model/'
+
 #Outputs folder
 #folder = '/home/lprieto/Research/M2S_line_outages/Outputs/'
-folder_2 = '/home/lprieto/Research/M2S_line_outages/Outputs_2/'
+folder_2 = '/Volumes/ElSoldeCusco/1. Research/18. 2nd paper/8. Github/M2S_extended/1. Model/Model_outputs/'
 
 # Max = 365
-days = 365
+days = 1
 
-instance = m1.create_instance('MTS_data.dat')
-instance2 = m2.create_instance('MTS_data.dat')
+instance = m1.create_instance(folder + 'MTS_data.dat')
+instance2 = m2.create_instance(folder +'MTS_data.dat')
 instance2.dual = pyo.Suffix(direction=pyo.Suffix.IMPORT)
 
 opt = SolverFactory("gurobi")
@@ -48,7 +57,7 @@ slack = []
 vlt_angle=[]
 duals=[]
 
-df_generators = pd.read_csv('data_genparams_partial.csv',header=0)
+df_generators = pd.read_csv(folder_inputs+'data_genparams_partial.csv',header=0)
 
 
 #max here can be (1,365)
@@ -181,15 +190,15 @@ flow_pd = pd.DataFrame(flow,columns=('Line','Time','Value'))
 duals_pd = pd.DataFrame(duals,columns=['Constraint','Bus','Time','Value'])
 
 #to save outputs
-mwh_pd.to_csv(folder_2 + 'mwh_10ft.csv')
+mwh_pd.to_csv(folder_2 + 'mwh.csv')
 # vlt_angle_pd.to_csv('vlt_angle.csv')
 # on_pd.to_csv('on.csv')
 # switch_pd.to_csv('switch.csv')
 # srsv_pd.to_csv('srsv.csv')
 # nrsv_pd.to_csv('nrsv.csv')
-slack_pd.to_csv(folder_2 + 'slack_10ft.csv')
-flow_pd.to_csv(folder_2 + 'flow_10ft.csv')
-duals_pd.to_csv(folder_2 + 'duals_10ft.csv')
+slack_pd.to_csv(folder_2 + 'slack.csv')
+flow_pd.to_csv(folder_2 + 'flow.csv')
+duals_pd.to_csv(folder_2 + 'duals.csv')
 
 
 
