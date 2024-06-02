@@ -5,6 +5,7 @@ This model simulates electricity production, generators, and power flows across 
 
 The model evaluates the resource adequacy of the defined decarbonization pathways in the Carolinas Resource Plan, tracking system performance from 2021 to 2050, considering the addition of new capacity and the retirement of carbon-intensive power plants.
 
-<img width="540" alt="image" src="https://github.com/lprieto1409/DC-OPF-extended/assets/69161060/18948f23-4dec-4d1f-98a7-27372efafa7d">
+<img width="541" alt="image" src="https://github.com/lprieto1409/DC-OPF-extended/assets/69161060/c40a5e6a-55e7-4e40-a336-b4b3e89dc83c">
+
 
 
